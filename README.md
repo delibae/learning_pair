@@ -1,5 +1,8 @@
 # learning_pair
 ## 전체
+### Branch
+feature/selenium1<br/>
+selenium1/page1
 ### To Do
 1. 지역 내에 이동 포인트 선정 및 리스트화<br/><br/>
 2. 셀레니움 이용하여 포인트간의 경로 시간 데이터 불러오는 코드 작성<br/><br/>
@@ -20,15 +23,28 @@
 2단계<br/><br/>
 파트1: 입출력 gui 제작<br/><br/>
 
-### 분업 규칙
+### 협업 규칙
 
-1. 각자의 브랜치에서 담당한 기능을 만든후 merge한다.<br/><br/>
+1. 각자의 브랜치에서 담당한 기능을 만든후 merge 해주세요<br/><br/>
 
-2. merge 하기전에 code review를 먼저 받는다. <br/><br/>
+2. pull request 요청시에 리뷰하고 comment 남겨주세요 <br/><br/>
+
+3. branch 명은 feature/기능명 => 기능명/세부기능 과 같이 하위 브랜치를 생성해주세요<br/><br/>
+
+4. 본인이 생성한 branch는 항상 최신화 하여 README.md에 정리해주세요(꼭 master에!!)<br/><br/>
 
 
-### 한진
+## 한진
+### Complete
+
+1. 협업 규칙 및 개발 가이드라인 작성
+
+### To Do
 
 ### 명섭
+### Complete
+### To Do
 
 ### 수민
+### Complete
+### To Do
