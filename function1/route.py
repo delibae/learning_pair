@@ -63,3 +63,5 @@ while len(visited) != len(serialNumList):
 #def dijkstra (start):
 
 # 최종 보고서때 까지 작업 해야하는 사항: 엑셀 파일 가져오기, 화면 출력
+
+#1s
