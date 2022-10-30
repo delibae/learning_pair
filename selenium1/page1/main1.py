@@ -85,7 +85,6 @@ for i in range(len(ad_list)):
         time_dict[f'{i}_{j}'] = text
 
 
-print(1)
 print(time_dict)
 
 driver.close()
