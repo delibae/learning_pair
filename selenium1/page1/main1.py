@@ -126,10 +126,11 @@ for i in range(len(ad_list)):
 print(time_dict)
 
 # 드라이버 종료
-driver.close()
+driver.quit()
 
 # time_dict data를 pickle 형태로 저장
-with open('time_dict.pickle','wb') as fw:
+with open('time_dict1.pickle', 'wb') as fw:
     pickle.dump(time_dict, fw)
 
+#완료?
 
