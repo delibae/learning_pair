@@ -2,7 +2,11 @@
 ## 전체
 ### Branch
 feature/selenium1<br/>
-selenium1/page1
+selenium1/page1<br/>
+feature/root<br/>
+root/root1<br/>
+feature/address<br/>
+
 ### To Do
 1. 지역 내에 이동 포인트 선정 및 리스트화<br/><br/>
 2. 셀레니움 이용하여 포인트간의 경로 시간 데이터 불러오는 코드 작성<br/><br/>
@@ -38,6 +42,8 @@ selenium1/page1
 ### Complete
 
 1. 협업 규칙 및 개발 가이드라인 작성
+2. selenium4 immigration 완료 및 크롤링 코드작성 완료
+3. 중간 단계 코드 점검 완료
 
 ### To Do
 
