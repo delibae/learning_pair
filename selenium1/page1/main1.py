@@ -22,6 +22,7 @@ path_driver = "./chromedriver"
 
 chrome_options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
 ad_list = ['경기 이천시 아리역로 37','경기 이천시 아리역로38번길 10-18']
 time_dict = {}
 
