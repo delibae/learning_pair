@@ -1,5 +1,9 @@
 # 전체 주소:일련번호
+import queue
+from tabnanny import check
 from tracemalloc import start
+
+from numpy import Inf
 
 
 address_dict = {'Loc1':1,'Loc2':2,'Loc3':3,'Loc4':4,'Loc5':5}
@@ -40,26 +44,53 @@ for i in range (len(serialNumList)):
                 routeGraph.graph[i][j] = time_dict[str(serialNumList[i])+"-"+str(serialNumList[j])]
         #print(routeGraph.graph[i][j])
 
-# 출발지 설정 (현재는 테스트 값)
-startPoint = "Loc1"
-startSerialNumberIndex = serialNumList.index(address_dict[startPoint])
+# 경로 생성
+
+checkPoint = "Loc2"
+checkPointNum = address_dict[checkPoint]
+nextNum = 0
+
 shortRoute = 999
 
-visited = [address_dict[startPoint]] # 방문 여부
-print(visited)
-while len(visited) != len(serialNumList):
-    for i in range(len(serialNumList)):
-        if shortRoute > routeGraph.graph[startSerialNumberIndex][i]:
-            print(i)
-            shortRoute = routeGraph.graph[startSerialNumberIndex][i]
-            print(shortRoute)
-            visited.append(serialNumList[i])
-            print(visited)
-    startSerialNumberIndex = i
-# 문제점 최단 루트를 다시 초기화 하는데 있어서 문제가 있다. 
-# 갔었던 루트는 다시 택하면 안되지만 다시 택하는 문제점이 있음
-# 중간 보고서때 까지 작업 해야하는 사항: 문제점 해결
+visited = [checkPointNum]
 
-#def dijkstra (start):
+# 큐형식으로 작업 공간 생성
+current = []
+originCurrent =[]
+def creating_queue (pointNum):
+    global current
+    global originCurrent
+    current = []
+    originCurrent = []
+    for i in serialNumList:
+        current.append(routeGraph.graph[serialNumList.index(pointNum)][serialNumList.index(i)])
+        originCurrent.append(routeGraph.graph[serialNumList.index(pointNum)][serialNumList.index(i)])
+    for j in visited:
+        print("방문 :", j)
+        current.remove(routeGraph.graph[serialNumList.index(pointNum)][serialNumList.index(j)])
+        print("커런트 : ",current)
 
+
+
+
+# 다익스트라 알고리즘 사용
+for i in range(len(serialNumList)-1):
+    #print(i)
+    creating_queue(checkPointNum)
+    for i in current:
+        if shortRoute > i:
+            shortRoute = i
+    print("오리진 : ",originCurrent)
+    visited.append(serialNumList[originCurrent.index(shortRoute)])
+    checkPointNum = serialNumList[originCurrent.index(shortRoute)]
+    shortRoute=999
+
+    print(visited)
+
+
+
+
+#1s
+
+# 변경 사항: 경로 설정 완료
 # 최종 보고서때 까지 작업 해야하는 사항: 엑셀 파일 가져오기, 화면 출력
