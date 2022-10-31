@@ -19,6 +19,21 @@ import csv
 
 import pickle
 
+# 시간 텍스트를 정수형으로 변환하는 함수
+
+def to_int(text):
+    hour = text.find('시')
+    minute = text.find('분')
+    if hour == None:
+        text = int(text[:minute])
+    else:
+        text = text.split('시간')
+        try:
+            text2 = text[1].split('분')
+            text = int(text[0]) * 60 + int(text2[0])
+        except:
+            text = int(text[0]) * 60
+    return text
 
 # 크롬 드라이버 생성
 chrome_options = webdriver.ChromeOptions()
@@ -117,9 +132,11 @@ for i in range(len(ad_list)):
             text = take_time.text
         except:
             print("error: no time value")
-        
+
+        # text에 있는 시간 값을 분 단위의 정수형으로 변환
+        text = to_int(text)
         # time_dict에 소요시간 추가
-        time_dict[f'{i}_{j}'] = text
+        time_dict[f'{i}-{j}'] = text
 
 
 # time_dict 출력
@@ -129,7 +146,7 @@ print(time_dict)
 driver.quit()
 
 # time_dict data를 pickle 형태로 저장
-with open('time_dict1.pickle', 'wb') as fw:
+with open('time_dict.pickle', 'wb') as fw:
     pickle.dump(time_dict, fw)
 
 #완료?

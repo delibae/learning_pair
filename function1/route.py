@@ -28,44 +28,45 @@ class Graph():
     def __init__(self,size): 
         self.SIZE = size
         self.graph = [[0 for _ in range(size)]for _ in range(size)]
+    def add(self, i , j):
+        if i == j:
+            routeGraph.graph[i][j] = 999
+        else:
+            time = time_dict[str(serialNumList[i]) + "-" + str(serialNumList[j])]
+            routeGraph.graph[j][i] = time
+            routeGraph.graph[i][j] = time
 
 # 일련번호 리스트 이용해서 그래프 만들기
 routeGraph = Graph(len(serialNumList))
 
 for i in range (len(serialNumList)):
-    for j in range (len(serialNumList)):
-        if i == j:
-            routeGraph.graph[i][j] = 999
-        else:
-            route = str(serialNumList[i])+"-"+str(serialNumList[j])
-            if route not in time_dict:
-                routeGraph.graph[i][j] = time_dict[str(serialNumList[j])+"-"+str(serialNumList[i])]
-            else:
-                routeGraph.graph[i][j] = time_dict[str(serialNumList[i])+"-"+str(serialNumList[j])]
-        #print(routeGraph.graph[i][j])
+    for j in range (i, len(serialNumList)):
+        routeGraph.add(i,j)
+
 
 # 경로 생성
 
-checkPoint = "Loc2"
+checkPoint = "Loc5"
 checkPointNum = address_dict[checkPoint]
 nextNum = 0
 
-shortRoute = 999
 
-visited = [checkPointNum]
+shortRoute = 999 # 최단 경로를 999로 리셋
+
+visited = [checkPointNum] # 방문한 장소
 
 # 큐형식으로 작업 공간 생성
 current = []
 originCurrent =[]
-def creating_queue (pointNum):
+def creating_queue (pointNum): # 경로에 대한 시간을 담은 큐 작성
     global current
     global originCurrent
-    current = []
-    originCurrent = []
-    for i in serialNumList:
+    current = [] # 경로 찾는 큐 리셋
+    originCurrent = [] # 경로 찾는 큐 리셋
+    for i in serialNumList: # 체크 포인트에서 가능한 경로 큐에 추가
         current.append(routeGraph.graph[serialNumList.index(pointNum)][serialNumList.index(i)])
         originCurrent.append(routeGraph.graph[serialNumList.index(pointNum)][serialNumList.index(i)])
-    for j in visited:
+    for j in visited: # 방문한 장소는 current 리스트에서 제거
         print("방문 :", j)
         current.remove(routeGraph.graph[serialNumList.index(pointNum)][serialNumList.index(j)])
         print("커런트 : ",current)
@@ -73,24 +74,20 @@ def creating_queue (pointNum):
 
 
 
-# 다익스트라 알고리즘 사용
+# 알고리즘 사용
 for i in range(len(serialNumList)-1):
     #print(i)
-    creating_queue(checkPointNum)
+    creating_queue(checkPointNum) # 큐 생성
     for i in current:
-        if shortRoute > i:
+        if shortRoute > i: # 현재가지고 있는 최단 거리보다 작으면 최단거리 다시 저장
             shortRoute = i
     print("오리진 : ",originCurrent)
-    visited.append(serialNumList[originCurrent.index(shortRoute)])
-    checkPointNum = serialNumList[originCurrent.index(shortRoute)]
-    shortRoute=999
+    visited.append(serialNumList[originCurrent.index(shortRoute)]) # 방문 리스트에 저장
+    checkPointNum = serialNumList[originCurrent.index(shortRoute)] # 체크 포인트 방문한 곳으로 저장
+    shortRoute=999 # 최단 거리 리셋
 
     print(visited)
 
-
-
-
-#1s
 
 # 변경 사항: 경로 설정 완료
 # 최종 보고서때 까지 작업 해야하는 사항: 엑셀 파일 가져오기, 화면 출력
