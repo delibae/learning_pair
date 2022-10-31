@@ -40,7 +40,6 @@ class Graph():
 routeGraph = Graph(len(serialNumList))
 
 for i in range (len(serialNumList)):
-<<<<<<< HEAD
     for j in range (i, len(serialNumList)):
         routeGraph.add(i,j)
 
@@ -50,24 +49,7 @@ for i in range (len(serialNumList)):
 checkPoint = "Loc5"
 checkPointNum = address_dict[checkPoint]
 nextNum = 0
-=======
-    for j in range (len(serialNumList)):
-        if i == j:
-            routeGraph.graph[i][j] = 999 # x값과 y값이 같은 노드는 값을 999로 갖는다.
-        else:
-            route = str(serialNumList[i])+"-"+str(serialNumList[j])
-            if route not in time_dict: # 시간 딕셔너리에 없으면 실행
-                routeGraph.graph[i][j] = time_dict[str(serialNumList[j])+"-"+str(serialNumList[i])]
-                # x와 y값을 바꾸어서 나온값을 저장
-            else:
-                routeGraph.graph[i][j] = time_dict[str(serialNumList[i])+"-"+str(serialNumList[j])]
-        #print(routeGraph.graph[i][j])
 
-# 경로 생성
-
-checkPoint = "Loc2" # 시작 포인트이자 체크포인트
-checkPointNum = address_dict[checkPoint] 
->>>>>>> 20e2a1efc89e2d9231228d70b5747bcffb92e8bd
 
 shortRoute = 999 # 최단 경로를 999로 리셋
 
