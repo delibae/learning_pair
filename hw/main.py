@@ -1,3 +1,9 @@
+# 각각 작성한 코드를 모두 합친 것입니다.
+# 이름 밑에 자신이 작성한 코드를 넣었습니다.
+# 한번에 돌아가기 위해 원본에서 일부 주석처리하고 수정한 부분 있습니다.
+# 자세한 코드는 아래에 깃허브 링크 남깁니다.
+# https://github.com/delibae/learning_pair
+
 ####송수민
 
 from audioop import adpcm2lin
@@ -66,7 +72,7 @@ for ad_name in ad_list:
     except Exception as e:
         print(e)
 
-driver.close()
+driver.quit()
 
 # 결과 엑셀로 옮기기
 for i in range(len(ad_list2)):
@@ -117,16 +123,20 @@ def create_ad_list(path):
 
 def to_int(text):
     hour = text.find('시')
+
     minute = text.find('분')
-    if hour == None:
+
+    if hour == -1:
         text = int(text[:minute])
     else:
         text = text.split('시간')
-        try:
+        if minute != -1:
             text2 = text[1].split('분')
             text = int(text[0]) * 60 + int(text2[0])
-        except:
+        else:
             text = int(text[0]) * 60
+
+    print(text)
     return text
 
 
