@@ -28,25 +28,25 @@ class Graph():
     def __init__(self,size): 
         self.SIZE = size
         self.graph = [[0 for _ in range(size)]for _ in range(size)]
+    def add(self, i , j):
+        if i == j:
+            routeGraph.graph[i][j] = 999
+        else:
+            time = time_dict[str(serialNumList[i]) + "-" + str(serialNumList[j])]
+            routeGraph.graph[j][i] = time
+            routeGraph.graph[i][j] = time
 
 # 일련번호 리스트 이용해서 그래프 만들기
 routeGraph = Graph(len(serialNumList))
 
 for i in range (len(serialNumList)):
-    for j in range (len(serialNumList)):
-        if i == j:
-            routeGraph.graph[i][j] = 999
-        else:
-            route = str(serialNumList[i])+"-"+str(serialNumList[j])
-            if route not in time_dict:
-                routeGraph.graph[i][j] = time_dict[str(serialNumList[j])+"-"+str(serialNumList[i])]
-            else:
-                routeGraph.graph[i][j] = time_dict[str(serialNumList[i])+"-"+str(serialNumList[j])]
-        #print(routeGraph.graph[i][j])
+    for j in range (i, len(serialNumList)):
+        routeGraph.add(i,j)
+
 
 # 경로 생성
 
-checkPoint = "Loc2"
+checkPoint = "Loc5"
 checkPointNum = address_dict[checkPoint]
 nextNum = 0
 
