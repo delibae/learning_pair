@@ -2,7 +2,6 @@
 ## 전체
 ### Branch
 feature/selenium1<br/>
-selenium1/page1<br/>
 feature/root<br/>
 root/root1<br/>
 feature/address<br/>

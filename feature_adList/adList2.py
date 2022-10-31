@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 from webdriver_manager.chrome import ChromeDriverManager
 
 import time
-import pyautogui
-import pyperclip
+# import pyautogui
+# import pyperclip
 
 import pandas as pd
 import re
