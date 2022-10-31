@@ -19,7 +19,16 @@ import csv
 
 import pickle
 
+# 주소 리스트 엑셀에서 불러오는 함수
+def create_ad_list(path):
+    ex = pd.read_excel(path)
+    ad_list = ex['도로명'].to_list()
+    return ad_list
+
+
+
 # 시간 텍스트를 정수형으로 변환하는 함수
+
 
 def to_int(text):
     hour = text.find('시')
@@ -39,8 +48,9 @@ def to_int(text):
 chrome_options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
-# 주소 리스트 불러오기(차후 pandas read excel => to list 로 대체할 예정)
-ad_list = ['경기 이천시 아리역로 37','경기 이천시 아리역로38번길 10-18','경기 이천시 부발읍 경충대로 1918-18','경기 이천시 설성면 설가로 219','경기 이천시 장호원읍 대서리 산 63-1']
+# 주소 리스트 불러오기
+ad_list = create_ad_list('Book3.xlsx')
+print(ad_list)
 
 # key:주소1인덱스_주소2인덱스, value: 주소1 <-> 주소2 소요시간
 time_dict = {}
