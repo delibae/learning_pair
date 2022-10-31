@@ -32,16 +32,20 @@ def create_ad_list(path):
 
 def to_int(text):
     hour = text.find('시')
+
     minute = text.find('분')
-    if hour == None:
+
+    if hour == -1:
         text = int(text[:minute])
     else:
         text = text.split('시간')
-        try:
+        if minute != -1:
             text2 = text[1].split('분')
             text = int(text[0]) * 60 + int(text2[0])
-        except:
+        else:
             text = int(text[0]) * 60
+
+    print(text)
     return text
 
 # 크롬 드라이버 생성
