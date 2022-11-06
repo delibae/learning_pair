@@ -16,7 +16,7 @@ enterType = False
 # 파일 입력 부분은 최종 보고서시 작성
 
 # 입력 받은 리스트 (현재는 테스트 값)
-addressList = ['Loc1','Loc2','Loc5']
+addressList = ['Loc1','Loc2','Loc4','Loc5']
 serialNumList = [] # 일련번호 리스트
 
 # 일련번호 리스트 채우기
@@ -25,7 +25,7 @@ for i in range(len(addressList)):
         serialNumList.insert(i,address_dict[addressList[i]])
 
 class Graph():
-    def __init__(self,size): 
+    def __init__(self,size):
         self.SIZE = size
         self.graph = [[0 for _ in range(size)]for _ in range(size)]
     def add(self, i , j):
@@ -35,6 +35,9 @@ class Graph():
             time = time_dict[str(serialNumList[i]) + "-" + str(serialNumList[j])]
             routeGraph.graph[j][i] = time
             routeGraph.graph[i][j] = time
+    def out(self):
+        for i in self.graph:
+            print(i)
 
 # 일련번호 리스트 이용해서 그래프 만들기
 routeGraph = Graph(len(serialNumList))
@@ -91,3 +94,93 @@ for i in range(len(serialNumList)-1):
 
 # 변경 사항: 경로 설정 완료
 # 최종 보고서때 까지 작업 해야하는 사항: 엑셀 파일 가져오기, 화면 출력
+
+import time
+import datetime
+import pandas as pd
+
+# start = time.time()
+#
+# for i in range(10000000):
+#     a = 2021 > 2020
+#
+# sec = time.time() -start
+#
+# times = str(datetime.timedelta(seconds=sec))
+# print(times)
+
+def seq_in(routeGraph, n):
+    if (routeGraph.SIZE - 1)%n == 0:
+        seq_n = (routeGraph.SIZE -1)//2
+        seq_rest = None
+    else:
+        seq_n = (routeGraph.SIZE -1)//2
+        seq_rest = (routeGraph.SIZE - 1)%n
+    return seq_n,seq_rest
+
+
+def pp(ary, num):
+    result = []
+    if num >= 1:
+        for i in ary:
+            arr = ary.copy()
+            arr.remove(i)
+            get = pp(arr,num-1)
+            for j in get:
+                result.append([i]+j)
+    if num == 1:
+        for i in ary:
+            result.append([i])
+        return result
+    return result
+
+def find_min(Graph_to, for_visit, pivot, num, path, path_time):
+    r = []
+    for i in range(len(for_visit)):
+        if for_visit[i] == 0:
+            r.append(i)
+    min = 9999
+    min_pth = None
+    min_time = None
+
+    for i in pp(r, num):
+        point = pivot
+        total = []
+        for j in i:
+            total.append(Graph_to.loc[point, j])
+            point = j
+        if sum(total) < min:
+            min = sum(total)
+            min_pth = i
+            min_time = total
+
+    path.extend(min_pth)
+
+    path_time.extend(min_time)
+    pivot = path[-1]
+    for i in min_pth:
+        for_visit[i] = 1
+    return  pivot, path, path_time
+
+def complete_path(routeGraph, n , pivot):
+    path = []
+    path_time = []
+    path.append(pivot)
+
+    for_visit = [0 for i in range(routeGraph.SIZE)]
+    for_visit[pivot] = 1
+    Graph_to = pd.DataFrame(routeGraph.graph)
+
+    seq_n , seq_rest = seq_in(routeGraph,n)
+    for i in range(seq_n):
+        pivotm, path, path_time = find_min(Graph_to, for_visit, pivot,n, path, path_time)
+    if seq_rest != None:
+        pivot, path, path_time = find_min(Graph_to, for_visit, pivot,seq_rest, path, path_time)
+    return pivot, path, path_time
+
+
+pivot = 0
+n = 2
+
+pivot, path, path_time = complete_path(routeGraph,n,pivot)
+print(path)
