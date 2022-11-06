@@ -173,7 +173,7 @@ def complete_path(routeGraph, n , pivot):
 
     seq_n , seq_rest = seq_in(routeGraph,n)
     for i in range(seq_n):
-        pivotm, path, path_time = find_min(Graph_to, for_visit, pivot,n, path, path_time)
+        pivot, path, path_time = find_min(Graph_to, for_visit, pivot,n, path, path_time)
     if seq_rest != None:
         pivot, path, path_time = find_min(Graph_to, for_visit, pivot,seq_rest, path, path_time)
     return pivot, path, path_time
@@ -184,3 +184,97 @@ n = 2
 
 pivot, path, path_time = complete_path(routeGraph,n,pivot)
 print(path)
+
+
+class frm():
+    def __init__(self,routeGraph, n , pivot):
+        self.routeGraph = routeGraph
+        self.n = n
+        self.pivot = pivot
+
+        self.path = []
+        self.path_time = []
+        self.path.append(self.pivot)
+
+        self.for_visit = [0 for i in range(self.routeGraph.SIZE)]
+        self.for_visit[self.pivot] = 1
+
+        self.Graph_to = pd.DataFrame(self.routeGraph.graph)
+
+        self.seq_n, self.seq_rest = self.seq_in()
+
+    def seq_in(self):
+        if (self.routeGraph.SIZE - 1)%n == 0:
+            seq_n = (self.routeGraph.SIZE -1)//2
+            seq_rest = None
+        else:
+            seq_n = (self.routeGraph.SIZE -1)//2
+            seq_rest = (self.routeGraph.SIZE - 1)%n
+        return seq_n,seq_rest
+
+
+    def pp(self,ary, num):
+        result = []
+        if num >= 1:
+            for i in ary:
+                arr = ary.copy()
+                arr.remove(i)
+                get = pp(arr,num-1)
+                for j in get:
+                    result.append([i]+j)
+        if num == 1:
+            for i in ary:
+                result.append([i])
+            return result
+        return result
+
+    def find_min(self,num):
+        r = []
+        for i in range(len(self.for_visit)):
+            if self.for_visit[i] == 0:
+                r.append(i)
+        min = 9999
+        min_pth = None
+        min_time = None
+
+        for i in pp(r, num):
+            point = self.pivot
+            total = []
+            for j in i:
+                total.append(self.Graph_to.loc[point, j])
+                point = j
+            if sum(total) < min:
+                min = sum(total)
+                min_pth = i
+                min_time = total
+
+        self.path.extend(min_pth)
+
+        self.path_time.extend(min_time)
+        self.pivot = path[-1]
+        for i in min_pth:
+            self.for_visit[i] = 1
+
+    def complete_path(self):
+
+        for i in range(self.seq_n):
+            self.find_min(self.n)
+        if self.seq_rest != None:
+            self.find_min(self.seq_rest)
+        return self.pivot, self.path, self.path_time
+
+pivot = 0
+n = 2
+a = frm(routeGraph,n,pivot)
+pivot, path, path_time = a.complete_path()
+print(path)
+print(path_time)
+
+
+
+
+
+
+
+
+
