@@ -1,12 +1,13 @@
 import eel
 
-eel.init('web')                     # Give folder containing web files
+# Set web files folder
+eel.init('web')
 
 @eel.expose                         # Expose this function to Javascript
-def handleinput(x):
-    print('%s' % x)
+def say_hello_py(x):
+    print('Hello from %s' % x)
 
-eel.say_hello_js('connected!')   # Call a Javascript function
+say_hello_py('Python World!')
+eel.say_hello_js('Python World!')   # Call a Javascript function
 
-eel.start('main.html', size=(1024, 768))    # Start
-
+eel.start('hello.html', size=(1024, 768))  # Start
