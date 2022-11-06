@@ -106,7 +106,7 @@ class frm():
             for i in ary:
                 arr = ary.copy()
                 arr.remove(i)
-                get = pp(arr,num-1)
+                get = self.pp(arr,num-1)
                 for j in get:
                     result.append([i]+j)
         if num == 1:
@@ -124,7 +124,7 @@ class frm():
         min_pth = None
         min_time = None
 
-        for i in pp(r, num):
+        for i in self.pp(r, num):
             point = self.pivot
             total = []
             for j in i:
@@ -138,7 +138,7 @@ class frm():
         self.path.extend(min_pth)
 
         self.path_time.extend(min_time)
-        self.pivot = path[-1]
+        self.pivot = self.path[-1]
         for i in min_pth:
             self.for_visit[i] = 1
 
