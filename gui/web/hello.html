@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Hello, World!</title>
+<head>
+    <title>Hello, World!</title>
 
-        <!-- Include eel.js - note this file doesn't exist in the 'web' directory -->
-        <script type="text/javascript" src="/eel.js"></script>
-        <script type="text/javascript">
+    <!-- Include eel.js - note this file doesn't exist in the 'web' directory -->
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript">
 
         eel.expose(say_hello_js);               // Expose this function to Python
         function say_hello_js(x) {
@@ -15,10 +15,158 @@
         say_hello_js("Javascript World!");
         eel.say_hello_py("Javascript World!");  // Call a Python function
 
-        </script>
-    </head>
+    </script>
+</head>
 
-    <body>
-        Hello, World!
-    </body>
+<body>
+<div id="leftbox">
+    <img src="img/upload.svg" id="upload_img" alt="My Image">
+    <div id="left_txt">주소 리스트 드래그 앤 드롭 or 파일 탐색하기</div>
+    <div id="left_txt2">호환 파일 유형: csv, excel</div>
+
+</div>
+<div id="rightbox">
+    <img src="img/click.svg" id="click_img" alt="My Image">
+    <div id="right_txt">수동 선택하기</div>
+</div>
+</body>
+
+<style>
+    body {
+        background: #332D2D;
+    }
+
+    #click_img {
+        position: absolute;
+        width: 67px;
+        height: 67px;
+        left: 213px;
+        top: 45px;
+
+    }
+
+    #upload_img {
+        position: absolute;
+        left: 42.25%;
+        right: 42.3%;
+        top: 14.85%;
+        bottom: 55.65%;
+    }
+
+    #leftbox {
+
+        box-sizing: border-box;
+
+        position: absolute;
+        left: 101px;
+        top: 304px;
+
+        width: 493.47px;
+        height: 224px;
+
+        background: #415485;
+        border: 1.10891px dashed rgba(56, 78, 183, 0.3);
+        border-radius: 4.43564px;
+    }
+
+    #left_txt {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 5.54455px;
+        gap: 11.09px;
+
+        position: absolute;
+        width: 370.09px;
+        height: 38.09px;
+        left: calc(50% - 370.09px / 2);
+        top: calc(50% - 38.09px / 2 + 29.02px);
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17.7426px;
+        line-height: 27px;
+        /* identical to box height, or 150% */
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        color: #FFFFFF;
+
+    }
+
+    #left_txt2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 5.54455px;
+        gap: 11.09px;
+
+        position: absolute;
+        width: 155.09px;
+        height: 31.09px;
+        left: calc(50% - 155.09px / 2);
+        top: 159.68px;
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13.3069px;
+        line-height: 20px;
+        /* identical to box height, or 150% */
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        color: #FFFFFF;
+    }
+
+    #rightbox {
+        position: absolute;
+        width: 493.47px;
+        height: 224px;
+        left: 686px;
+        top: 304px;
+
+        box-sizing: border-box;
+
+
+        background: #415485;
+        border: 1.10891px dashed rgba(56, 78, 183, 0.3);
+        border-radius: 4.43564px;
+    }
+
+    #right_txt {
+        /* Auto layout */
+
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 5.54455px;
+        gap: 11.09px;
+
+        position: absolute;
+        width: 114.09px;
+        height: 38.09px;
+        left: calc(50% - 114.09px / 2 + 0.31px);
+        top: 137px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17.7426px;
+        line-height: 27px;
+        /* identical to box height, or 150% */
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        color: #FFFFFF;
+    }
+</style>
 </html>
