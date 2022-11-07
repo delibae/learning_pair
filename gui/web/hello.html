@@ -14,14 +14,13 @@
 
         say_hello_js("Javascript World!");
         eel.say_hello_py("Javascript World!");  // Call a Python function
-
         eel.change();
 
     </script>
 </head>
 
 <body>
-<div id="leftbox">
+<div id="leftbox" onclick="location.replace('/hello1.html')">
     <img src="img/upload.svg" id="upload_img" alt="My Image">
     <div id="left_txt">주소 리스트 드래그 앤 드롭 or 파일 탐색하기</div>
     <div id="left_txt2">호환 파일 유형: csv, excel</div>
@@ -31,8 +30,13 @@
     <img src="img/click.svg" id="click_img" alt="My Image">
     <div id="right_txt">수동 선택하기</div>
 </div>
+<div onclick="location.replace('/hello1.html')">
+    testtest
+</div>
 </body>
+<script>
 
+</script>
 <style>
     body {
         background: #332D2D;

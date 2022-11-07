@@ -6,6 +6,55 @@
     <title>Title</title>
 </head>
 <body>
-
+<img src="img/back.svg" id="back_img" alt="My Image">
+<div id="complete">
+    <h1 id="txt">선택완료</h1>
+</div>
 </body>
+<script type="text/javascript">
+    function out() {
+        eel.say_hello_py("Javascript World!");
+    }
+</script>
+
+<style>
+    body {
+        background: #332D2D;
+    }
+
+    #txt {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 24px;
+        width: 100%;
+        color: #DBD1D1;
+        text-align: center;
+    }
+
+    #complete {
+        position: absolute;
+        width: 438.97px;
+        height: 76px;
+        left: calc(50% - 438.97px / 2 + 0.48px);
+        top: calc(50% - 76px / 2 + 292px);
+
+        background: #415485;
+        border-radius: 10.4828px;
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+    }
+
+    #back_img {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        left: 12px;
+        top: 44px;
+    }
+</style>
 </html>
