@@ -5,7 +5,7 @@ from pandas import json_normalize
 import route_module as rt
 import time
 
-addressList = ['Loc0', 'Loc1', 'Loc2', 'Loc4']
+addressList = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
 serialNumList = []
 
 address_dict = {'Loc0': 0, 'Loc1': 1, 'Loc2': 2, 'Loc3': 3, 'Loc4': 4}
@@ -73,7 +73,7 @@ def on_load():
     path_size = len(final_ad)
 
     current_ad = final_ad[i]
-    rest_time = sum(path_time[i:])
+    rest_time = sum(path_time[:])
     eel.first_data(current_ad, str(rest_time))
 
 @eel.expose

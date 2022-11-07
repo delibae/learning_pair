@@ -1,6 +1,6 @@
 import pandas as pd
 
-addressList = ['Loc0', 'Loc1', 'Loc2', 'Loc4']
+addressList = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
 serialNumList = []
 
 address_dict = {'Loc0': 0, 'Loc1': 1, 'Loc2': 2, 'Loc3': 3, 'Loc4': 4}
@@ -31,7 +31,10 @@ class Graph():
         if i == j:
             self.graph[i][j] = 999
         else:
-            time = self.time_dict[str(self.serialNumList[i]) + "-" + str(self.serialNumList[j])]
+            try:
+                time = self.time_dict[str(self.serialNumList[i]) + "-" + str(self.serialNumList[j])]
+            except:
+                time = self.time_dict[str(self.serialNumList[j]) + "-" + str(self.serialNumList[i])]
             self.graph[j][i] = time
             self.graph[i][j] = time
 
@@ -132,6 +135,7 @@ n = 2
 a = frm(routeGraph,n,pivot,routeGraph.serialNumList)
 
 pivot, path, path_time = a.complete_path()
+print(routeGraph.serialNumList)
 print(path)
 print(path_time)
 
