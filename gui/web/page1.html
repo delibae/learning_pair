@@ -5,6 +5,7 @@
 
     <!-- Include eel.js - note this file doesn't exist in the 'web' directory -->
     <script type="text/javascript" src="/eel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
     <script type="text/javascript">
 
         eel.expose(say_hello_js);               // Expose this function to Python
@@ -20,26 +21,96 @@
 </head>
 
 <body>
-<div id="leftbox" onclick="location.replace('/hello1.html')">
-    <img src="img/upload.svg" id="upload_img" alt="My Image">
-    <div id="left_txt">주소 리스트 드래그 앤 드롭 or 파일 탐색하기</div>
-    <div id="left_txt2">호환 파일 유형: csv, excel</div>
-
-</div>
+<label for="input_file" id="before">
+    <div id="leftbox">
+        <img src="img/upload.svg" id="upload_img" alt="My Image">
+        <div id="left_txt">주소 리스트 업로드 하기</div>
+        <div>
+            <form id="send">
+                <input type="file" id="input_file" style="display: none" onchange="outname(), readExcel()" accept=".csv,.xlsx">
+            </form>
+            <label for="input_file" id="left_txt2">호환 파일 유형: csv, excel</label>
+        </div>
+    </div>
+</label>
 <div id="rightbox">
     <img src="img/click.svg" id="click_img" alt="My Image">
     <div id="right_txt">수동 선택하기</div>
 </div>
-<div onclick="location.replace('/hello1.html')">
-    testtest
+
+<div id="complete" onclick="to_page3()">
+    <p id="c_txt">
+        선택완료
+    </p>
 </div>
+
+
 </body>
 <script>
+    function to_page3() {
+        location.replace('/page3.html')
+    }
 
+    function readExcel() {
+        let input = event.target;
+        let reader = new FileReader();
+        reader.onload = function () {
+            let data = reader.result;
+            let workBook = XLSX.read(data, {type: 'binary'});
+            workBook.SheetNames.forEach(function (sheetName) {
+                console.log('SheetName: ' + sheetName);
+                let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
+                console.log(JSON.stringify(rows));
+                eel.get_file(JSON.stringify(rows));
+            })
+        };
+        reader.readAsBinaryString(input.files[0]);
+    }
+
+    function outname() {
+        var e1 = document.getElementById("left_txt2");
+        var f_name = document.getElementById("input_file").files[0].name;
+        var f = document.getElementById("input_file").files[0];
+
+        e1.innerText = f_name;
+        document.getElementById("complete").style.display = "inline"
+
+    }
 </script>
 <style>
     body {
         background: #332D2D;
+    }
+
+    #c_txt {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18.8013px;
+        line-height: 17px;
+        /* or 79% */
+
+        text-align: center;
+        width: 100%;
+
+        color: #DBD1D1;
+    }
+
+    #complete {
+        position: absolute;
+        width: 319px;
+        height: 55.23px;
+        left: calc(50% - 319px / 2 - 292.5px);
+        top: calc(50% - 55.23px / 2 + 175.61px);
+
+        background: #415485;
+        border-radius: 7.61791px;
+
+        display: flex;
+        align-items: center;
+
+        display: none;
+
     }
 
     #click_img {
