@@ -1,9 +1,9 @@
 import pandas as pd
 
-addressList = ['Loc0', 'Loc1', 'Loc2', 'Loc3']
+addressList = ['Loc0', 'Loc1', 'Loc2', 'Loc4']
 serialNumList = []
 
-address_dict = {'Loc0': 0, 'Loc1': 1, 'Loc3': 2, 'Loc4': 3, 'Loc5': 4}
+address_dict = {'Loc0': 0, 'Loc1': 1, 'Loc2': 2, 'Loc3': 3, 'Loc4': 4}
 # 전체주소-전체주소: 소요시간
 time_dict = {'0-1': 30, '0-2': 40, '0-3': 10, '0-4': 90, '1-2': 60, '1-3': 80, '1-4': 25, '2-3': 5, '2-4': 15,
              '3-4': 45}
@@ -22,6 +22,7 @@ class Graph():
         for i in range(len(self.addressList)):
             if self.addressList[i] in self.address_dict:
                 self.serialNumList.insert(i, self.address_dict[self.addressList[i]])
+
         for i in range(len(self.serialNumList)):
             for j in range(i, len(self.serialNumList)):
                 self.add(i, j)
@@ -41,13 +42,15 @@ class Graph():
 
 # 일련번호 리스트 이용해서 그래프 만들기
 routeGraph = Graph(len(addressList), addressList, address_dict, time_dict)
-print(routeGraph.out())
+
 
 class frm():
-    def __init__(self,routeGraph, n , pivot):
+    def __init__(self,routeGraph, n , pivot, serialNumList):
         self.routeGraph = routeGraph
         self.n = n
         self.pivot = pivot
+
+        self.serialNumList = serialNumList
 
         self.path = []
         self.path_time = []
@@ -117,11 +120,17 @@ class frm():
             self.find_min(self.n)
         if self.seq_rest != None:
             self.find_min(self.seq_rest)
+        #path to seriul num
+        seriul_path = []
+        for i in self.path:
+            seriul_path.append(self.serialNumList[i])
+        self.path = seriul_path
         return self.pivot, self.path, self.path_time
 
 pivot = address_dict.get(addressList[0])
 n = 2
-a = frm(routeGraph,n,pivot)
+a = frm(routeGraph,n,pivot,routeGraph.serialNumList)
+
 pivot, path, path_time = a.complete_path()
 print(path)
 print(path_time)
@@ -134,5 +143,5 @@ def serial_to_ad(path):
         f_ad.append(convert_address_dict.get(i))
     return f_ad
 
-print(convert_address_dict)
-print(serial_to_ad(path))
+# print(convert_address_dict)
+# print(serial_to_ad(path))

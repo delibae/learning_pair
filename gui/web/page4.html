@@ -6,32 +6,110 @@
     <meta charset="UTF-8">
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <title>Title</title>
+    <script>
+        function b_check() {
+            eel.b_check()
+        }
+
+        eel.expose(hide);
+        function hide() {
+            document.getElementById("s_c").style.display = "none"
+            document.getElementById("for_v").style.display = "inline"
+            eel.b_load();
+        }
+    </script>
 </head>
-<body>
-<img src="img/back.svg" id="back_img" alt="My Image">
-<img src="img/navi.svg" id="navi_img" alt="My Image">
-<div id="left_bt">
-    <p id="l_txt">이전</p>
+<body onload="b_check()">
+<div id="for_v">
+    <img src="img/back.svg" id="back_img" alt="My Image">
+    <img src="img/navi.svg" id="navi_img" alt="My Image">
+    <div id="left_bt" onclick="eel.before_path()">
+        <p id="l_txt">이전</p>
+    </div>
+    <div id="right_bt" onclick="eel.next_path()">
+        <p id="r_txt">다음</p>
+    </div>
+    <div id="field">
+        <p class="ad" id="ad1">서울특별시 강남구</p>
+        <p class="ad" id="ad2">삼성로 11 디에이치아너힐즈</p>
+        <p class="time" id="btime">소요시간: 1시간</p>
+        <p class="time" id="atime">예상 잔여시간: 40분</p>
+    </div>
 </div>
-<div id="right_bt">
-    <p id="r_txt">다음</p>
-</div>
-<div id="field">
-    <p class="ad" id="ad1">서울특별시 강남구</p>
-    <p class="ad" id="ad2">삼성로 11 디에이치아너힐즈</p>
-    <p class="time" id="btime">소요시간: 1시간</p>
-    <p class="time" id="atime">예상 잔여시간: 40분</p>
+<div id="s_c" onclick="start()">
+    <p id="sc_txt">안내 시작</p>
 </div>
 </body>
 <script>
-    function get_data(ad,rtime){
+    function start() {
+        document.getElementById("s_c").style.display = "none"
+        document.getElementById("for_v").style.display = "inline"
+        eel.on_load()
+    }
+
+    eel.expose(first_data)
+
+    function first_data(ad, rtime) {
         document.getElementById('ad1').innerText = ad;
-        document.getElementById('atime').innerText = rtime;
+        document.getElementById('atime').innerText = '예상 잔여시간: ' + rtime;
+    }
+
+    eel.expose(next_data)
+
+    function next_data(ad, rtime) {
+        document.getElementById('ad1').innerText = ad;
+        document.getElementById('atime').innerText = '예상 잔여시간: ' + rtime;
+    }
+
+
+    eel.expose(before_data)
+
+    function before_data(ad, rtime) {
+        document.getElementById('ad1').innerText = ad;
+        document.getElementById('atime').innerText = '예상 잔여시간: ' + rtime;
+    }
+
+    eel.expose(last_page)
+
+    function last_page() {
+        location.replace('/page5.html');
     }
 </script>
 <style>
     body {
         background: #332D2D;
+    }
+
+    #sc_txt {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 45px;
+        line-height: 53px;
+        /* identical to box height */
+
+
+        color: #DBD1D1;
+        width: 100%;
+        text-align: center;
+    }
+
+    #s_c {
+        position: absolute;
+        width: 377px;
+        height: 377px;
+        left: 451px;
+        top: 228px;
+        border-radius: 377px;
+        background: #415485;
+
+        display: flex;
+
+        align-items: center;
+    }
+
+    #for_v {
+        display: none;
     }
 
     #field {
