@@ -92,10 +92,10 @@ class frm():
 
     def seq_in(self):
         if (self.routeGraph.SIZE - 1)%n == 0:
-            seq_n = (self.routeGraph.SIZE -1)//2
+            seq_n = (self.routeGraph.SIZE -1)//n
             seq_rest = None
         else:
-            seq_n = (self.routeGraph.SIZE -1)//2
+            seq_n = (self.routeGraph.SIZE -1)//n
             seq_rest = (self.routeGraph.SIZE - 1)%n
         return seq_n,seq_rest
 
@@ -143,7 +143,6 @@ class frm():
             self.for_visit[i] = 1
 
     def complete_path(self):
-
         for i in range(self.seq_n):
             self.find_min(self.n)
         if self.seq_rest != None:
