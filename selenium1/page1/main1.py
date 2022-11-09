@@ -151,6 +151,9 @@ for i in range(len(ad_list)):
         text = to_int(text)
         # time_dict에 소요시간 추가
         time_dict[f'{i}-{j}'] = text
+    if i%100 == 0:
+        with open('time_dict.pickle', 'wb') as fw:
+            pickle.dump(time_dict, fw)
 
 
 # time_dict 출력
