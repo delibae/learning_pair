@@ -45,8 +45,9 @@ def to_int(text):
         else:
             text = int(text[0]) * 60
 
-    print(text)
     return text
+
+
 
 # 크롬 드라이버 생성
 chrome_options = webdriver.ChromeOptions()
@@ -56,17 +57,21 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 ad_list = create_ad_list('Book3.xlsx')
 print(ad_list)
 
+
 # key:주소1인덱스_주소2인덱스, value: 주소1 <-> 주소2 소요시간
 time_dict = {}
+error_list = []
 
 # 겹치는 작업 없도록 반복문 생성
 for i in range(len(ad_list)):
     for j in range(i+1, len(ad_list)):
 
+        error = 0
         # 주소1 주소2 불러오기
         ad1_name = ad_list[i]
+        print(ad_list[i])
         ad2_name = ad_list[j]
-
+        print(ad_list[j])
         # print(ad1_name,ad2_name)
 
         # 카카오맵 열기
@@ -80,6 +85,7 @@ for i in range(len(ad_list)):
             ad1.send_keys(ad1_name + Keys.ENTER)
             time.sleep(2)
         except:
+            error = 1
             print("error: first address input error")
 
         # 팝업창 제거
@@ -97,6 +103,7 @@ for i in range(len(ad_list)):
             bt.click()
             time.sleep(1)
         except:
+            error = 1
             print("error: btn_direction click error")
 
 
@@ -107,6 +114,7 @@ for i in range(len(ad_list)):
             start_p.click()
             time.sleep(1)
         except:
+            error = 1
             print("error: start button click error")
 
         # 팝업창 제거
@@ -127,6 +135,7 @@ for i in range(len(ad_list)):
             ad2 = driver.find_element(By.XPATH,'//*[@id="info.route.waypointSuggest.input1"]')
             ad2.send_keys(ad2_name + Keys.ENTER)
         except:
+            error = 1
             print("error: second address input error")
 
         time.sleep(2)
@@ -136,6 +145,7 @@ for i in range(len(ad_list)):
             car_bt = driver.find_element(By.XPATH,'//*[@id="cartab"]')
             car_bt.click()
         except:
+            error = 1
             print("error: car tab switch error")
 
         time.sleep(1)
@@ -145,19 +155,36 @@ for i in range(len(ad_list)):
             take_time = driver.find_element(By.XPATH,'//*[@id="info.flagsearch"]/div[6]/ul/li/div[1]/div/div[1]/p/span[1]')
             text = take_time.text
         except:
+            error = 1
             print("error: no time value")
 
         # text에 있는 시간 값을 분 단위의 정수형으로 변환
-        text = to_int(text)
-        # time_dict에 소요시간 추가
-        time_dict[f'{i}-{j}'] = text
+        if error == 0:
+            try:
+                text = to_int(text)
+                # time_dict에 소요시간 추가
+                time_dict[f'{i}-{j}'] = text
+                print(error)
+            except:
+                error = 1
+                print("error: to_int error")
+                print(error)
+        else:
+            error = 1
+            print(error)
+            error_list.append([ad1_name,ad2_name])
+            time_dict[f'{i}-{j}'] = -1
+
     if i%100 == 0:
         with open('time_dict.pickle', 'wb') as fw:
             pickle.dump(time_dict, fw)
+        with open('error_list.pickle', 'wb') as fw:
+            pickle.dump(error_list, fw)
 
 
 # time_dict 출력
 print(time_dict)
+print(error_list)
 
 # 드라이버 종료
 driver.quit()
@@ -165,6 +192,9 @@ driver.quit()
 # time_dict data를 pickle 형태로 저장
 with open('time_dict.pickle', 'wb') as fw:
     pickle.dump(time_dict, fw)
+
+with open('error_list.pickle','wb') as fw:
+    pickle.dump(error_list,fw)
 
 #완료?
 
