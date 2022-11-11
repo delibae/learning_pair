@@ -29,7 +29,6 @@ def create_ad_list(path):
 
 # 시간 텍스트를 정수형으로 변환하는 함수
 
-
 def to_int(text):
     hour = text.find('시')
 
@@ -65,7 +64,7 @@ error_list = []
 # 겹치는 작업 없도록 반복문 생성
 for i in range(len(ad_list)):
     for j in range(i+1, len(ad_list)):
-
+        # start = time.time()
         error = 0
         # 주소1 주소2 불러오기
         ad1_name = ad_list[i]
@@ -77,13 +76,13 @@ for i in range(len(ad_list)):
         # 카카오맵 열기
         driver.get("https://map.kakao.com/")
 
-        time.sleep(3)
+        time.sleep(2)
 
         # 첫번째 주소 입력
         try:
             ad1 = driver.find_element(By.XPATH, '//*[@id="search.keyword.query"]')
             ad1.send_keys(ad1_name + Keys.ENTER)
-            time.sleep(2)
+            time.sleep(1)
         except:
             error = 1
             print("error: first address input error")
@@ -93,7 +92,7 @@ for i in range(len(ad_list)):
             get_out = driver.find_element(By.XPATH,'/html/body/div[10]').click()
             get_out2 = driver.find_element(By.XPATH,'/html/body/div[10]/div').click()
 
-            time.sleep(1)
+            # time.sleep(1)
         except:
             pass
 
@@ -101,7 +100,7 @@ for i in range(len(ad_list)):
         try:
             bt = driver.find_element(By.CLASS_NAME,'btn_direction')
             bt.click()
-            time.sleep(1)
+            # time.sleep(1)
         except:
             error = 1
             print("error: btn_direction click error")
@@ -112,7 +111,7 @@ for i in range(len(ad_list)):
         try:
             start_p = driver.find_element(By.XPATH,"//button[.='" + '출발' + "']")
             start_p.click()
-            time.sleep(1)
+            # time.sleep(1)
         except:
             error = 1
             print("error: start button click error")
@@ -120,7 +119,7 @@ for i in range(len(ad_list)):
         # 팝업창 제거
         try:
             get_out3 = driver.find_element(By.XPATH,'/html/body/div[10]/div/div').click()
-            time.sleep(1)
+            # time.sleep(1)
         except:
             pass
 
@@ -138,7 +137,7 @@ for i in range(len(ad_list)):
             error = 1
             print("error: second address input error")
 
-        time.sleep(2)
+        time.sleep(1)
 
         # 차량탭으로 이동
         try:
@@ -174,9 +173,9 @@ for i in range(len(ad_list)):
             print(error)
             error_list.append([ad1_name,ad2_name])
             time_dict[f'{i}-{j}'] = -1
-
+        # print(time.time()-start)
     if i%100 == 0:
-        with open('time_dict.pickle', 'wb') as fw:
+        with open('past_data/time_dict.pickle', 'wb') as fw:
             pickle.dump(time_dict, fw)
         with open('error_list.pickle', 'wb') as fw:
             pickle.dump(error_list, fw)
@@ -190,7 +189,7 @@ print(error_list)
 driver.quit()
 
 # time_dict data를 pickle 형태로 저장
-with open('time_dict.pickle', 'wb') as fw:
+with open('past_data/time_dict.pickle', 'wb') as fw:
     pickle.dump(time_dict, fw)
 
 with open('error_list.pickle','wb') as fw:

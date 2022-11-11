@@ -1,6 +1,6 @@
 import pickle
 
-with open('time_dict.pickle', 'rb') as f:
+with open('past_data/time_dict.pickle', 'rb') as f:
     data = pickle.load(f)
 
 print(data)
