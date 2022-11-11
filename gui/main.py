@@ -122,11 +122,20 @@ def before_path():
         print(rest_time)
         eel.before_data(current_ad, str(rest_time))
 
-@eel.expose
+# @eel.expose
 def b_check():
     if i != 1:
         eel.hide()
-
+        
+@eel.expose
+def on_page2_load():
+    #load pickle 필요
+    ad1_list = addressList
+    ad2_list = addressList
+    ad3_list = addressList
+    print("여기!")
+    ad_pack = [ad1_list,ad2_list,ad3_list]
+    eel.change(ad_pack)
 
 
 
