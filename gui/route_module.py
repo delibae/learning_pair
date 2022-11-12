@@ -1,4 +1,5 @@
 import pandas as pd
+import time
 
 addressList = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
 serialNumList = []
@@ -149,3 +150,15 @@ def serial_to_ad(path):
 
 # print(convert_address_dict)
 # print(serial_to_ad(path))
+
+# def cl_1000():
+#     start = time.time()
+#     b = []
+#     list = [1]
+#     for i in range(10000):
+#         a = list[0] > list[0]
+#         b.append(a)
+#     close = time.time()
+#     return (close - start)
+#
+# print(cl_1000())
