@@ -20,13 +20,13 @@
     </script>
 </head>
 <body onload="b_check()">
-<div id="for_v">
-    <img src="img/back.svg" id="back_img" alt="My Image">
+<div id="for_v" >
+<!--    <img src="img/back.svg" id="back_img" alt="My Image">-->
     <img src="img/navi.svg" id="navi_img" alt="My Image">
-    <div id="left_bt" onclick="eel.before_path()">
+    <div id="left_bt" onclick="eel.before_path()" style = "cursor:pointer">
         <p id="l_txt">이전</p>
     </div>
-    <div id="right_bt" onclick="eel.next_path()">
+    <div id="right_bt" onclick="eel.next_path()" style = "cursor:pointer">
         <p id="r_txt">다음</p>
     </div>
     <div id="field">
@@ -36,7 +36,7 @@
         <p class="time" id="atime">예상 잔여시간: 40분</p>
     </div>
 </div>
-<div id="s_c" onclick="start()">
+<div id="s_c" onclick="start()" style = "cursor:pointer">
     <p id="sc_txt">안내 시작</p>
 </div>
 </body>
