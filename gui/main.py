@@ -6,6 +6,11 @@ import route_module as rt
 import time
 
 addressList = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
+
+recent1 = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
+recent2 = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
+recent3 = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
+
 serialNumList = []
 
 address_dict = {'Loc0': 0, 'Loc1': 1, 'Loc2': 2, 'Loc3': 3, 'Loc4': 4}
@@ -33,13 +38,15 @@ def get_file(file):
     ad_list = df['도로명']
     print(ad_list)
 
+    ####ad1_list ad2_list ad3_list pickle 바꾸기
 
-# ad_list => address_list 전환 필요
+
+### ad_list => address_list 전환 필요
 @eel.expose
 def find_path():
     routeGraph = rt.Graph(len(addressList), addressList, address_dict, time_dict)
     pivot = address_dict.get(addressList[0])
-    # n 값 결정 알고리즘 필요
+    ### n 값 결정 알고리즘 필요
     n = 2
     a = rt.frm(routeGraph, n, pivot,routeGraph.serialNumList)
 
@@ -52,7 +59,7 @@ def find_path():
 
     eel.check()
 
-    # 나중에 지울것
+    ### 나중에 지울것
     time.sleep(3)
 
     eel.next_page()
@@ -122,20 +129,38 @@ def before_path():
         print(rest_time)
         eel.before_data(current_ad, str(rest_time))
 
-# @eel.expose
+@eel.expose
 def b_check():
     if i != 1:
         eel.hide()
         
 @eel.expose
 def on_page2_load():
-    #load pickle 필요
+    ###load pickle 필요
+    global ad1_list
+    global ad2_list
+    global ad3_list
+
     ad1_list = addressList
     ad2_list = addressList
     ad3_list = addressList
     print("여기!")
     ad_pack = [ad1_list,ad2_list,ad3_list]
     eel.change(ad_pack)
+
+
+@eel.expose
+def to_calculate(num):
+    ###recent pickle로 불러오기
+    if num == 3:
+        addressList = ad1_list
+    elif num == 2:
+        addressList = ad2_list
+    else:
+        addressList = ad3_list
+
+
+    eel.to_page_3()
 
 
 

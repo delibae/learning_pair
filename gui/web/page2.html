@@ -3,7 +3,7 @@
 <head>
     <script type="text/javascript" src="/eel.js"></script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>page2</title>
     <script>
         var t_1
         var t_2
@@ -25,25 +25,36 @@
             document.getElementById("t2").innerText = t_2[0] + "~" + t_2[t_2.length-1];
             document.getElementById("t3").innerText = t_3[0] + "~" + t_3[t_3.length-1];
         }
+
+        function to_calculate(num){
+            eel.to_calculate(num)
+
+        }
+
+        eel.expose(to_page_3)
+
+        function to_page_3(){
+            location.replace('/page3.html')
+        }
     </script>
 </head>
 <body onload="on_load()">
 <div>
     <img src="img/back.svg" id="back_img" alt="My Image">
 </div>
-<div id="div1">
+<div id="div1" onclick="to_calculate(1)">
     <p class="text">
         경로1
     </p>
     <p class="tt" id="t1"></p>
 </div>
-<div id="div2">
+<div id="div2" onclick="to_calculate(2)">
     <p class="text">
         경로2
     </p>
     <p class="tt" id="t2"></p>
 </div>
-<div id="div3">
+<div id="div3" onclick="to_calculate(3)">
     <p class="text">
         경로3
     </p>
