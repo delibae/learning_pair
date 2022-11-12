@@ -177,9 +177,9 @@ for i in range(100,130):
             time_dict[f'{i}-{j}'] = -1
         # print(time.time()-start)
     if i%5 == 0:
-        with open('100_300_data/time_dict.pickle_100_129', 'wb') as fw:
+        with open('past_data/100_300_data/time_dict.pickle_100_129', 'wb') as fw:
             pickle.dump(time_dict, fw)
-        with open('100_300_error/error_list.pickle_100_129', 'wb') as fw:
+        with open('past_data/100_300_error/error_list.pickle_100_129', 'wb') as fw:
             pickle.dump(error_list, fw)
 
 
@@ -191,10 +191,10 @@ print(error_list)
 driver.quit()
 
 # time_dict data를 pickle 형태로 저장
-with open('100_300_data/time_dict.pickle_100_129', 'wb') as fw:
+with open('past_data/100_300_data/time_dict.pickle_100_129', 'wb') as fw:
     pickle.dump(time_dict, fw)
 
-with open('100_300_error/error_list.pickle_100_129', 'wb') as fw:
+with open('past_data/100_300_error/error_list.pickle_100_129', 'wb') as fw:
     pickle.dump(error_list,fw)
 
 #완료?
