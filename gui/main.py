@@ -18,6 +18,7 @@ address_dict = {'Loc0': 0, 'Loc1': 1, 'Loc2': 2, 'Loc3': 3, 'Loc4': 4}
 time_dict = {'0-1': 30, '0-2': 40, '0-3': 10, '0-4': 90, '1-2': 60, '1-3': 80, '1-4': 25, '2-3': 5, '2-4': 15,
              '3-4': 45}
 
+### 이 딕셔너리도 미리 pickle로 만들어 두면 됨
 convert_address_dict = {v: k for k, v in address_dict.items()}
 
 # Set web files folder
