@@ -176,12 +176,12 @@ for i in range(100,130):
             error_list.append([ad1_name,ad2_name])
             time_dict[f'{i}-{j}'] = -1
         # print(time.time()-start)
-    if i%5 == 0:
-        with open('past_data/100_300_data/time_dict.pickle_100_129', 'wb') as fw:
+    if i%1 == 0:
+        with open('final_data/100_200/time_dict_100_129.pickle', 'wb') as fw:
             pickle.dump(time_dict, fw)
-        with open('past_data/100_300_error/error_list.pickle_100_129', 'wb') as fw:
-            pickle.dump(error_list, fw)
 
+        with open('final_data/100_200/error_list_100_129.pickle', 'wb') as fw:
+            pickle.dump(error_list, fw)
 
 # time_dict 출력
 print(time_dict)
@@ -191,10 +191,10 @@ print(error_list)
 driver.quit()
 
 # time_dict data를 pickle 형태로 저장
-with open('past_data/100_300_data/time_dict.pickle_100_129', 'wb') as fw:
+with open('final_data/100_200/time_dict_100_129.pickle', 'wb') as fw:
     pickle.dump(time_dict, fw)
 
-with open('past_data/100_300_error/error_list.pickle_100_129', 'wb') as fw:
+with open('final_data/100_200/error_list_100_129.pickle', 'wb') as fw:
     pickle.dump(error_list,fw)
 
 #완료?
