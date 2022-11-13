@@ -50,14 +50,18 @@
     eel.expose(first_data)
 
     function first_data(ad, rtime) {
-        document.getElementById('ad1').innerText = ad;
+        const arr = ad.split(" ");
+        document.getElementById('ad1').innerText = arr.slice(0,2).join(' ');
+        document.getElementById('ad2').innerText = arr.slice(2,-1).join(' ');
         document.getElementById('atime').innerText = '예상 잔여시간: ' + rtime;
     }
 
     eel.expose(next_data)
 
     function next_data(ad, rtime) {
-        document.getElementById('ad1').innerText = ad;
+        const arr = ad.split(" ");
+        document.getElementById('ad1').innerText = arr.slice(0,2).join(' ');
+        document.getElementById('ad2').innerText = arr.slice(2,-1).join(' ');
         document.getElementById('atime').innerText = '예상 잔여시간: ' + rtime;
     }
 
@@ -65,7 +69,9 @@
     eel.expose(before_data)
 
     function before_data(ad, rtime) {
-        document.getElementById('ad1').innerText = ad;
+        const arr = ad.split(" ");
+        document.getElementById('ad1').innerText = arr.slice(0,2).join(' ');
+        document.getElementById('ad2').innerText = arr.slice(2,-1).join(' ');
         document.getElementById('atime').innerText = '예상 잔여시간: ' + rtime;
     }
 

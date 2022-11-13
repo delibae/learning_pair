@@ -1,14 +1,21 @@
 import pandas as pd
 import time
+import random
 
-addressList = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
-serialNumList = []
+addressList = []
+for i in range(100):
+    addressList.append(i)
 
-address_dict = {'Loc0': 0, 'Loc1': 1, 'Loc2': 2, 'Loc3': 3, 'Loc4': 4}
-# 전체주소-전체주소: 소요시간
-time_dict = {'0-1': 30, '0-2': 40, '0-3': 10, '0-4': 90, '1-2': 60, '1-3': 80, '1-4': 25, '2-3': 5, '2-4': 15,
-             '3-4': 45}
+# serialNumList = []
+address_dict = {}
+for i in range(len(addressList)):
+    address_dict[i] = i
+# # 전체주소-전체주소: 소요시간
+time_dict = {}
 
+for i in range(len(addressList)):
+    for j in range(i+1,len(addressList)):
+        time_dict[f'{i}-{j}'] = random.randint(1,100)
 
 class Graph():
     def __init__(self, size, addressList, address_dict, time_dict):
@@ -45,7 +52,7 @@ class Graph():
 
 
 # 일련번호 리스트 이용해서 그래프 만들기
-routeGraph = Graph(len(addressList), addressList, address_dict, time_dict)
+# routeGraph = Graph(len(addressList), addressList, address_dict, time_dict)
 
 
 class frm():
@@ -68,12 +75,12 @@ class frm():
         self.seq_n, self.seq_rest = self.seq_in()
 
     def seq_in(self):
-        if (self.routeGraph.SIZE - 1)%n == 0:
-            seq_n = (self.routeGraph.SIZE -1)//n
+        if (self.routeGraph.SIZE - 1)%self.n == 0:
+            seq_n = (self.routeGraph.SIZE -1)//self.n
             seq_rest = None
         else:
-            seq_n = (self.routeGraph.SIZE -1)//n
-            seq_rest = (self.routeGraph.SIZE - 1)%n
+            seq_n = (self.routeGraph.SIZE -1)//self.n
+            seq_rest = (self.routeGraph.SIZE - 1)%self.n
         return seq_n,seq_rest
 
 
@@ -131,22 +138,25 @@ class frm():
         self.path = seriul_path
         return self.pivot, self.path, self.path_time
 
-pivot = address_dict.get(addressList[0])
-n = 2
-a = frm(routeGraph,n,pivot,routeGraph.serialNumList)
+#
+# pivot = address_dict.get(addressList[0])
+# n = 2
+# a = frm(routeGraph,n,pivot,routeGraph.serialNumList)
+#
+# pivot, path, path_time = a.complete_path()
+# print(routeGraph.serialNumList)
+# print(path)
+# print(path_time)
+#
+# convert_address_dict = {v:k for k,v in address_dict.items()}
 
-pivot, path, path_time = a.complete_path()
-print(routeGraph.serialNumList)
-print(path)
-print(path_time)
-
-convert_address_dict = {v:k for k,v in address_dict.items()}
-
-def serial_to_ad(path):
+def serial_to_ad(path,convert_address_dict):
     f_ad = []
     for i in path:
         f_ad.append(convert_address_dict.get(i))
     return f_ad
+
+
 
 # print(convert_address_dict)
 # print(serial_to_ad(path))
@@ -162,3 +172,54 @@ def serial_to_ad(path):
 #     return (close - start)
 #
 # print(cl_1000())
+
+def factorial(n):
+    re = 1
+    for i in range(1, n+1):
+        re *= i
+    return re
+
+def sum_calculate(i,n):
+    total = 0
+    for m in range((i-1)//n):
+        total += factorial(i-1-n*m)/factorial(i-1-n*m-n)
+    if (i-1)%n != 0:
+        total += factorial((i-1)%n)
+    return total
+print(sum_calculate(10,1))
+
+def find_n(i,target):
+    routeGraph = Graph(len(addressList), addressList, address_dict, time_dict)
+    pivot = address_dict.get(addressList[0])
+    ### n 값 결정 알고리즘 필요
+    n = 1
+    a = frm(routeGraph, n, pivot, routeGraph.serialNumList)
+    n = 1
+    start = time.time()
+    a = frm(routeGraph, n, pivot, routeGraph.serialNumList)
+    time1 = time.time() - start
+    print(time1)
+    n = 10
+    start = time.time()
+    a = frm(routeGraph, n, pivot, routeGraph.serialNumList)
+    time2 = time.time() - start
+    print(time2)
+    time_gap = time2 - time1
+    print(time_gap)
+    if time_gap > 0:
+        num1 = sum_calculate(100,1)
+        num2 = sum_calculate(100,10)
+        gap = num2 - num1
+        unit_time = time_gap/gap
+
+        max_cal = target//unit_time
+
+        for j in range(1,i):
+            if sum_calculate(i,j) > max_cal:
+                 return j
+        return i-1
+
+    else:
+        return i-1
+
+
