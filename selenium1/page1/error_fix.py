@@ -1,16 +1,31 @@
 import pickle
 
-with open('past_data/100_300_data/time_dict.pickle_100_129', 'rb') as f:
-    data = pickle.load(f)
+# a = ['0_29','30_59','60_99','100_129','130_159','160_189','190_219','220_249','250_last']
+# path = './final_data/100_200/time_dict_'
+# path_1 = './final_data/100_200/error_list_'
+# time_dict = {}
+# for i in a:
+#     t_path = path + i + '.pickle'
+#     with open(t_path,'rb') as f:
+#         t = pickle.load(f)
+#     time_dict.update(t)
+#
+# error_list_to = []
+#
+# for i in a:
+#     e_path = path_1 + i + '.pickle'
+#     with open(e_path,'rb') as f:
+#         e = pickle.load(f)
+#     error_list_to.extend(e)
+#
+# print(len(time_dict))
+# print(len(error_list_to))
 
-print(len(data))
 
-with open('past_data/100_300_error/error_list.pickle_100_129', 'rb') as f:
-    data2 = pickle.load(f)
-
-print(len(data2))
-
-print(data)
+with open('fixed_data/time_dict1.pickle', 'rb') as f:
+    time_dict = pickle.load(f)
+with open('fixed_data/error_list1.pickle', 'rb') as f:
+    error_list_to = pickle.load(f)
 
 import sys
 import os
@@ -71,19 +86,18 @@ print(ad_list)
 
 
 # key:주소1인덱스_주소2인덱스, value: 주소1 <-> 주소2 소요시간
-time_dict = data
+
 error_list = []
 
+# print(len([k for k, v in time_dict.items() if v == -1]))
 
-print(len([k for k, v in time_dict.items() if v == -1]))
-print(len(data2))
 ###
 
 
-for m in range(len(data2)):
+for m in range(len(error_list_to)):
 
-    i = ad_list.index(data2[m][0])
-    j = ad_list.index(data2[m][1])
+    i = ad_list.index(error_list_to[m][0])
+    j = ad_list.index(error_list_to[m][1])
     print(time_dict[f'{i}-{j}'] == -1)
     # start = time.time()
     error = 0
@@ -202,10 +216,9 @@ print(error_list)
 driver.quit()
 
 # time_dict data를 pickle 형태로 저장
-# with open('100_300_fix/time_dict.pickle_100_129', 'wb') as fw:
-#     pickle.dump(time_dict, fw)
-#
-# with open('100_300_fix/error_list.pickle_100_129', 'wb') as fw:
-#     pickle.dump(error_list, fw)
+with open('fixed_data/time_dict.pickle', 'wb') as fw:
+    pickle.dump(time_dict, fw)
 
-# 완료?
+with open('fixed_data/error_list.pickle', 'wb') as fw:
+    pickle.dump(error_list, fw)
+

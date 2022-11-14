@@ -63,7 +63,7 @@ error_list = []
 
 # 겹치는 작업 없도록 반복문 생성
 # for i in range(len(ad_list)):
-for i in range(100,130):
+for i in range(60,100):
     for j in range(i+1, len(ad_list)):
         print(i)
         # start = time.time()
@@ -177,10 +177,10 @@ for i in range(100,130):
             time_dict[f'{i}-{j}'] = -1
         # print(time.time()-start)
     if i%1 == 0:
-        with open('final_data/100_200/time_dict_100_129.pickle', 'wb') as fw:
+        with open('final_data/100_200/time_dict_60_99.pickle', 'wb') as fw:
             pickle.dump(time_dict, fw)
 
-        with open('final_data/100_200/error_list_100_129.pickle', 'wb') as fw:
+        with open('final_data/100_200/error_list_60_99.pickle', 'wb') as fw:
             pickle.dump(error_list, fw)
 
 # time_dict 출력
@@ -191,11 +191,11 @@ print(error_list)
 driver.quit()
 
 # time_dict data를 pickle 형태로 저장
-with open('final_data/100_200/time_dict_100_129.pickle', 'wb') as fw:
+with open('final_data/100_200/time_dict_60_99.pickle', 'wb') as fw:
     pickle.dump(time_dict, fw)
 
-with open('final_data/100_200/error_list_100_129.pickle', 'wb') as fw:
-    pickle.dump(error_list,fw)
+with open('final_data/100_200/error_list_60_99.pickle', 'wb') as fw:
+    pickle.dump(error_list, fw)
 
 #완료?
 
