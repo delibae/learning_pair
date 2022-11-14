@@ -9,23 +9,8 @@ import pickle
 time_gap,time1 = rt.get_time_gap()
 
 
-addressList = ['경기 이천시 부발읍 경충대로 1918-18' , '경기 이천시 신둔면 석동로 3', '경기 이천시 설성면 설가로 219', '경기 이천시 부발읍 경충대로1722번길 54', '경기 이천시 장호원읍 대서리 산 63-1']
+start_time = 0
 
-
-# recent1 = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
-# recent2 = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
-# recent3 = ['Loc0', 'Loc1', 'Loc3', 'Loc4', 'Loc2']
-
-### 제거 실험 필요
-serialNumList = []
-
-# address_dict = {'Loc0': 0, 'Loc1': 1, 'Loc2': 2, 'Loc3': 3, 'Loc4': 4}
-# 전체주소-전체주소: 소요시간
-# time_dict = {'0-1': 30, '0-2': 40, '0-3': 10, '0-4': 90, '1-2': 60, '1-3': 80, '1-4': 25, '2-3': 5, '2-4': 15,
-#              '3-4': 45}
-
-### 이 딕셔너리도 미리 pickle로 만들어 두면 됨
-# convert_address_dict = {v: k for k, v in address_dict.items()}
 
 
 with open('./data/recent1.pickle', 'rb') as f:
@@ -97,7 +82,6 @@ def find_path():
     n = rt.find_n(len(addressList),target_second,time_gap,time1)
     print("len of addressList", len(addressList))
     print("calculated n: ",n)
-
     a = rt.frm(routeGraph, n, pivot,routeGraph.serialNumList)
 
     global path_time
@@ -111,6 +95,9 @@ def find_path():
 
     ### 나중에 지울것
     time.sleep(1)
+    global start_time
+
+    start_time = time.time()
 
     eel.next_page()
 
@@ -119,19 +106,24 @@ def find_path():
 i = 1
 
 
+
 @eel.expose
 def on_load():
     global path_size
     global i
     global final_ad
     global path_time
+    global start_time
+
 
     print("i", i)
     path_size = len(final_ad)
 
     current_ad = final_ad[i]
     rest_time = sum(path_time[:])
-    eel.first_data(current_ad, str(rest_time))
+    ctime= round(time.time() - start_time)
+
+    eel.first_data(current_ad, str(rest_time), str(ctime//60))
 
 @eel.expose
 def b_load():
@@ -139,19 +131,22 @@ def b_load():
     global i
     global final_ad
     global path_time
+    global start_time
 
     print("i", i)
     path_size = len(final_ad)
 
     current_ad = final_ad[i]
     rest_time = path_time[-1]
-    eel.first_data(current_ad, str(rest_time))
+    ctime = round(time.time() - start_time)
+    eel.first_data(current_ad, str(rest_time),str(ctime//60))
 @eel.expose
 def next_path():
     global path_size
     global i
     global final_ad
     global path_time
+    global start_time
 
     print("i", i)
     if i < path_size-1:
@@ -159,7 +154,8 @@ def next_path():
         current_ad = final_ad[i]
         rest_time = sum(path_time[i-1:])
         print(rest_time)
-        eel.next_data(current_ad, str(rest_time))
+        ctime = round(time.time() - start_time)
+        eel.next_data(current_ad, str(rest_time),str(ctime//60))
     elif i == path_size -1:
         eel.last_page()
 
@@ -169,6 +165,7 @@ def before_path():
     global i
     global final_ad
     global path_time
+    global start_time
 
     print("i", i)
     if i > 1:
@@ -177,7 +174,8 @@ def before_path():
         current_ad = final_ad[i]
         rest_time = sum(path_time[i-1:])
         print(rest_time)
-        eel.before_data(current_ad, str(rest_time))
+        ctime = round(time.time() - start_time)
+        eel.before_data(current_ad, str(rest_time),str(ctime//60))
 
 @eel.expose
 def b_check():

@@ -10,8 +10,8 @@ def create_ad_list(path):
 
 addressList = create_ad_list('Book3.xlsx')
 
-recent1 = addressList[0:3]
-recent2 = addressList[1:4]
+recent1 = addressList[0:10]
+recent2 = addressList[0:50]
 recent3 = addressList[1:]
 
 

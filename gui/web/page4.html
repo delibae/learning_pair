@@ -12,6 +12,7 @@
         }
 
         eel.expose(hide);
+
         function hide() {
             document.getElementById("s_c").style.display = "none"
             document.getElementById("for_v").style.display = "inline"
@@ -20,13 +21,13 @@
     </script>
 </head>
 <body onload="b_check()">
-<div id="for_v" >
-<!--    <img src="img/back.svg" id="back_img" alt="My Image">-->
+<div id="for_v">
+    <!--    <img src="img/back.svg" id="back_img" alt="My Image">-->
     <img src="img/navi.svg" id="navi_img" alt="My Image">
-    <div id="left_bt" onclick="eel.before_path()" style = "cursor:pointer">
+    <div id="left_bt" onclick="eel.before_path()" style="cursor:pointer">
         <p id="l_txt">이전</p>
     </div>
-    <div id="right_bt" onclick="eel.next_path()" style = "cursor:pointer">
+    <div id="right_bt" onclick="eel.next_path()" style="cursor:pointer">
         <p id="r_txt">다음</p>
     </div>
     <div id="field">
@@ -36,7 +37,7 @@
         <p class="time" id="atime">예상 잔여시간: 40분</p>
     </div>
 </div>
-<div id="s_c" onclick="start()" style = "cursor:pointer">
+<div id="s_c" onclick="start()" style="cursor:pointer">
     <p id="sc_txt">안내 시작</p>
 </div>
 </body>
@@ -47,32 +48,38 @@
         eel.on_load()
     }
 
+
     eel.expose(first_data)
 
-    function first_data(ad, rtime) {
+    function first_data(ad, rtime, ctime) {
         const arr = ad.split(" ");
-        document.getElementById('ad1').innerText = arr.slice(0,2).join(' ');
-        document.getElementById('ad2').innerText = arr.slice(2,-1).join(' ');
-        document.getElementById('atime').innerText = '예상 잔여시간: ' + rtime;
+        document.getElementById('ad1').innerText = arr.slice(0, 2).join(' ');
+        document.getElementById('ad2').innerText = arr.slice(2, -1).join(' ');
+        document.getElementById('atime').innerText = '예상 잔여시간(분): ' + rtime;
+        document.getElementById('btime').innerText = "소요시간(분): " + ctime;
+        console.log(1)
     }
 
     eel.expose(next_data)
 
-    function next_data(ad, rtime) {
+    function next_data(ad, rtime, ctime) {
         const arr = ad.split(" ");
-        document.getElementById('ad1').innerText = arr.slice(0,2).join(' ');
-        document.getElementById('ad2').innerText = arr.slice(2,-1).join(' ');
+        document.getElementById('ad1').innerText = arr.slice(0, 2).join(' ');
+        document.getElementById('ad2').innerText = arr.slice(2, -1).join(' ');
         document.getElementById('atime').innerText = '예상 잔여시간: ' + rtime;
+        document.getElementById('btime').innerText = "소요시간(분): " + ctime;
+
     }
 
 
     eel.expose(before_data)
 
-    function before_data(ad, rtime) {
+    function before_data(ad, rtime,ctime) {
         const arr = ad.split(" ");
-        document.getElementById('ad1').innerText = arr.slice(0,2).join(' ');
-        document.getElementById('ad2').innerText = arr.slice(2,-1).join(' ');
+        document.getElementById('ad1').innerText = arr.slice(0, 2).join(' ');
+        document.getElementById('ad2').innerText = arr.slice(2, -1).join(' ');
         document.getElementById('atime').innerText = '예상 잔여시간: ' + rtime;
+        document.getElementById('btime').innerText = "소요시간(분): " + ctime;
     }
 
     eel.expose(last_page)
