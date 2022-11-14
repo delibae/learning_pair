@@ -2,7 +2,7 @@ import pickle
 import pandas as pd
 
 
-with open('fixed_data/time_dict.pickle', 'rb') as f:
+with open('../../gui/make_pickle/time_dict.pickle', 'rb') as f:
     time_dict = pickle.load(f)
 
 

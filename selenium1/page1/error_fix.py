@@ -216,7 +216,7 @@ print(error_list)
 driver.quit()
 
 # time_dict data를 pickle 형태로 저장
-with open('fixed_data/time_dict.pickle', 'wb') as fw:
+with open('../../gui/make_pickle/time_dict.pickle', 'wb') as fw:
     pickle.dump(time_dict, fw)
 
 with open('fixed_data/error_list.pickle', 'wb') as fw:
