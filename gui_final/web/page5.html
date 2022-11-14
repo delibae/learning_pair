@@ -6,12 +6,43 @@
     <title>page5</title>
 </head>
 <body>
-<img src="img/back.svg" id="back_img" alt="My Image" onclick="location.replace('./page4.html')" style = "cursor:pointer">
+<img src="img/back.svg" id="back_img" alt="My Image" onclick="location.replace('./page4.html')" style="cursor:pointer">
 <div id="finish">운행이 완료되었습니다</div>
+<div id="back_home" onclick="location.replace('/page1.html')" style="cursor: pointer">
+    <p id="b_txt">처음으로</p>
+</div>
 </body>
 <style>
     body {
         background: #332D2D;
+    }
+
+    #b_txt {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 24px;
+        /* identical to box height, or 67% */
+
+
+        color: #DBD1D1;
+        text-align: center;
+        width: 100%;
+    }
+
+    #back_home {
+        position: absolute;
+        width: 438.97px;
+        height: 76px;
+        left: 420px;
+        top: 504px;
+
+        background: #415485;
+        border-radius: 10.4828px;
+
+        display: flex;
+        align-items: center;
     }
 
     #finish {

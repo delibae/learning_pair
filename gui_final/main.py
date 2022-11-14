@@ -15,27 +15,28 @@ start_time = 0
 
 with open('./data/recent1.pickle', 'rb') as f:
     recent1 = pickle.load(f)
-print(recent1)
+# print(recent1)
 with open('./data/recent2.pickle', 'rb') as f:
     recent2 = pickle.load(f)
-print(recent2)
+# print(recent2)
 with open('./data/recent3.pickle', 'rb') as f:
     recent3 = pickle.load(f)
-print(recent3)
+# print(recent3)
 with open('./data/time_dict.pickle', 'rb') as f:
     time_dict = pickle.load(f)
-print(time_dict)
+# print(time_dict)
 with open('./data/address_dict.pickle', 'rb') as f:
     address_dict = pickle.load(f)
-print(address_dict)
+# print(address_dict)
 with open('./data/convert_address_dict.pickle', 'rb') as f:
     convert_address_dict = pickle.load(f)
-print(convert_address_dict)
+# print(convert_address_dict)
 
 # Set web files folder
 eel.init('web')
 
 is_new = 0
+i = 1
 
 @eel.expose  # Expose this function to Javascript
 def say_hello_py(x):
@@ -56,7 +57,7 @@ def get_file(file):
     is_new = 1
 
 
-    print(ad_list)
+    # print("addressList: ", addressList)
 
     ####ad1_list ad2_list ad3_list pickle 바꾸기
 
@@ -73,7 +74,7 @@ def find_path():
         with open('./data/recent1.pickle', 'wb') as f:
             pickle.dump(addressList, f, pickle.HIGHEST_PROTOCOL)
 
-
+    print("addressList: ",addressList)
     routeGraph = rt.Graph(len(addressList), addressList, address_dict, time_dict)
     pivot = address_dict.get(addressList[0])
     ### n 값 결정 알고리즘 필요
@@ -89,7 +90,7 @@ def find_path():
 
     global final_ad
     final_ad = rt.serial_to_ad(path,convert_address_dict)
-    print(final_ad)
+    print("final_ad: ",final_ad)
 
     eel.check()
 
@@ -103,7 +104,7 @@ def find_path():
 
 
 
-i = 1
+
 
 
 
@@ -192,7 +193,7 @@ def on_page2_load():
     # ad1_list = recent1
     # ad2_list = recent2
     # ad3_list = recent3
-    print("여기!")
+    # print("여기!")
     ad_pack = [recent1,recent2,recent3]
     eel.change(ad_pack)
 
@@ -212,7 +213,25 @@ def to_calculate(num):
 
     eel.to_page_3()
 
+@eel.expose
+def init():
+    print("start init")
 
+    global addressList
+    global is_new
+    global path_size
+    global i
+    global final_ad
+    global path_time
+    global start_time
+
+    addressList = []
+    is_new = 0
+    i = 1
+    path_size = 0
+    final_ad = None
+    path_time = None
+    start_time = None
 
 say_hello_py('Python World!')
 eel.say_hello_js('Python World!')  # Call a Javascript function
