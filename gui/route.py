@@ -48,6 +48,7 @@ class Graph():
         for i in self.graph:
             print(i)
 
+
 # 일련번호 리스트 이용해서 그래프 만들기
 routeGraph = Graph(len(serialNumList))
 

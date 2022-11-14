@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="/eel.js"></script>
+    <meta charset="UTF-8">
+    <title>page2</title>
+    <script>
+        var t_1
+        var t_2
+        var t_3
+
+        function on_load() {
+            eel.on_page2_load();
+
+        }
+
+        eel.expose(change);
+
+        function change(t_list) {
+            t_1 = t_list[0];
+            t_2 = t_list[1];
+            t_3 = t_list[2];
+            console.log(t_1)
+            document.getElementById("t1").innerText = "출발: " + t_1[0]
+            document.getElementById("t1-1").innerText = "도착: " + t_1[t_1.length-1];
+            document.getElementById("t2").innerText = "출발: " + t_2[0]
+            document.getElementById("t2-1").innerText = "도착: " + t_2[t_2.length-1];
+            document.getElementById("t3").innerText = "출발: " + t_3[0]
+            document.getElementById("t3-1").innerText = "도착: " + t_3[t_3.length-1];
+        }
+
+        function to_calculate(num){
+            eel.to_calculate(num)
+
+        }
+
+        eel.expose(to_page_3)
+
+        function to_page_3(){
+            location.replace('/page3.html')
+        }
+    </script>
+</head>
+<body onload="on_load()">
+<div style = "cursor:pointer" onclick="location.replace('/page1.html')">
+    <img src="img/back.svg" id="back_img" alt="My Image">
+</div>
+<div id="div1" onclick="to_calculate(1)" style = "cursor:pointer">
+    <p class="text">
+        경로1
+    </p>
+    <p class="tt" id="t1"></p>
+    <p class="tt" id="t1-1"></p>
+</div>
+<div id="div2" onclick="to_calculate(2)" style = "cursor:pointer">
+    <p class="text">
+        경로2
+    </p>
+    <p class="tt" id="t2"></p>
+    <p class="tt" id="t2-1"></p>
+</div>
+<div id="div3" onclick="to_calculate(3)" style = "cursor:pointer">
+    <p class="text">
+        경로3
+    </p>
+    <p class="tt" id="t3"></p>
+    <p class="tt" id="t3-1"></p>
+</div>
+<!--<div id="complete">-->
+<!--    <h1 id="txt">선택완료</h1>-->
+<!--</div>-->
+</body>
+<script type="text/javascript">
+    function out() {
+        eel.say_hello_py("Javascript World!");
+    }
+</script>
+
+<style>
+    body {
+        background: #332D2D;
+    }
+
+    .tt {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 4px;
+
+        color: #DBD1D1;
+    }
+
+
+    #div3 {
+        position: absolute;
+        width: 276px;
+        height: 276px;
+        left: 878px;
+        top: 278px;
+
+
+        background: #415485;
+        border-radius: 14px;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+                justify-content: center;
+    }
+
+    #div2 {
+        position: absolute;
+        width: 276px;
+        height: 276px;
+        left: 502px;
+        top: 278px;
+
+        background: #415485;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+                justify-content: center;
+
+    }
+
+    .text {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 4px;
+        /* identical to box height */
+
+
+        color: #DBD1D1;
+        width: 100%;
+        text-align: center;
+
+
+    }
+
+    #div1 {
+        position: absolute;
+        width: 276px;
+        height: 276px;
+        left: 126px;
+        top: 278px;
+
+        background: #415485;
+        border-radius: 14px;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        justify-content: center;
+    }
+
+    #txt {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 24px;
+        width: 100%;
+        color: #DBD1D1;
+        text-align: center;
+    }
+
+    #complete {
+        position: absolute;
+        width: 438.97px;
+        height: 76px;
+        left: calc(50% - 438.97px / 2 + 0.48px);
+        top: calc(50% - 76px / 2 + 292px);
+
+        background: #415485;
+        border-radius: 10.4828px;
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+    }
+
+    #back_img {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        left: 12px;
+        top: 44px;
+    }
+</style>
+</html>
