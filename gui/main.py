@@ -6,6 +6,9 @@ import route_module as rt
 import time
 import pickle
 
+time_gap,time1 = rt.get_time_gap()
+
+
 addressList = ['경기 이천시 부발읍 경충대로 1918-18' , '경기 이천시 신둔면 석동로 3', '경기 이천시 설성면 설가로 219', '경기 이천시 부발읍 경충대로1722번길 54', '경기 이천시 장호원읍 대서리 산 63-1']
 
 
@@ -91,7 +94,7 @@ def find_path():
     ### n 값 결정 알고리즘 필요
 
     target_second = 2
-    n = rt.find_n(len(addressList),target_second)
+    n = rt.find_n(len(addressList),target_second,time_gap,time1)
     print("len of addressList", len(addressList))
     print("calculated n: ",n)
 

@@ -188,7 +188,31 @@ def sum_calculate(i,n):
     return total
 print(sum_calculate(10,1))
 
-def find_n(i,target):
+def find_n(i,target,time_gap,time1):
+
+    if time_gap > 0:
+        num1 = sum_calculate(100,1)
+        num2 = sum_calculate(100,10)
+        gap = num2 - num1
+        unit_time = time_gap/gap
+        target = target - time1
+        print("target: ",target)
+        max_cal = target//unit_time + num1
+        print("max_cal: ", max_cal)
+        for j in range(1,i):
+            if sum_calculate(i,j) > max_cal:
+
+                return j
+
+        return i-1
+
+    else:
+        return i-1
+
+
+
+
+def get_time_gap():
     routeGraph = Graph(len(addressList), addressList, address_dict, time_dict)
     pivot = address_dict.get(addressList[0])
     ### n 값 결정 알고리즘 필요
@@ -198,28 +222,16 @@ def find_n(i,target):
     start = time.time()
     a = frm(routeGraph, n, pivot, routeGraph.serialNumList)
     time1 = time.time() - start
-    print(time1)
+    print("time1: ", time1)
     n = 10
     start = time.time()
     a = frm(routeGraph, n, pivot, routeGraph.serialNumList)
     time2 = time.time() - start
-    print(time2)
+    print("time2: ", time2)
     time_gap = time2 - time1
-    print(time_gap)
-    if time_gap > 0:
-        num1 = sum_calculate(100,1)
-        num2 = sum_calculate(100,10)
-        gap = num2 - num1
-        unit_time = time_gap/gap
+    print("time_gap: ", time_gap)
 
-        max_cal = target//unit_time
+    return time_gap, time1
 
-        for j in range(1,i):
-            if sum_calculate(i,j) > max_cal:
-                 return j
-        return i-1
-
-    else:
-        return i-1
-
-
+time_gap,time1 = get_time_gap()
+print(find_n(100,0.5,time_gap,time1))
