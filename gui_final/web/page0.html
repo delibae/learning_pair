@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function sleep(ms) {
+            const wakeUpTime = Date.now() + ms;
+            while (Date.now() < wakeUpTime) {
+            }
+        }
+
+
+        function sleep1() {
+            sleep(3000)
+            location.replace('/page1.html');
+        }
+    </script>
+</head>
+<body onload="sleep1()">
+<div id="title">PATH MANAGER</div>
+</body>
+<style>
+    body {
+        background: #332D2D;
+        /*width: 1280px;*/
+        /*height: 832px;*/
+    }
+
+    #title {
+        position: absolute;
+        width: 400px;
+        height: 56px;
+        left: calc(50% - 400px / 2);
+        top: calc(50% - 56px / 2);
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 56px;
+
+        color: #DBD1D1;
+    }
+</style>
+</html>

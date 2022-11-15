@@ -236,4 +236,4 @@ def init():
 say_hello_py('Python World!')
 eel.say_hello_js('Python World!')  # Call a Javascript function
 
-eel.start('/page1.html', size=(1280, 832))  # Start
+eel.start('/page0.html', size=(1280, 832))  # Start
