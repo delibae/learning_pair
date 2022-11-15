@@ -76,11 +76,13 @@ def find_path():
 
     print("addressList: ",addressList)
     routeGraph = rt.Graph(len(addressList), addressList, address_dict, time_dict)
-    pivot = address_dict.get(addressList[0])
-    ### n 값 결정 알고리즘 필요
+    # pivot = address_dict.get(addressList[0])
 
+    ### n 값 결정 알고리즘 필요
+    pivot = 0
     target_second = 2
     n = rt.find_n(len(addressList),target_second,time_gap,time1)
+
     print("len of addressList", len(addressList))
     print("calculated n: ",n)
     a = rt.frm(routeGraph, n, pivot,routeGraph.serialNumList)
@@ -232,6 +234,20 @@ def init():
     final_ad = None
     path_time = None
     start_time = None
+
+    global recent1
+    global recent2
+    global recent3
+
+    with open('./data/recent1.pickle', 'rb') as f:
+        recent1 = pickle.load(f)
+    # print(recent1)
+    with open('./data/recent2.pickle', 'rb') as f:
+        recent2 = pickle.load(f)
+    # print(recent2)
+    with open('./data/recent3.pickle', 'rb') as f:
+        recent3 = pickle.load(f)
+
 
 say_hello_py('Python World!')
 eel.say_hello_js('Python World!')  # Call a Javascript function

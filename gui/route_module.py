@@ -262,5 +262,5 @@ def get_time_gap():
 
     return time_gap, time1
 
-time_gap,time1 = get_time_gap()
-print(find_n(100,2,time_gap,time1))
+# time_gap,time1 = get_time_gap()
+# print(find_n(100,2,time_gap,time1))

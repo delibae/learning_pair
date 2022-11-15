@@ -1,6 +1,7 @@
 import pandas as pd
 import time
 import random
+import itertools
 
 addressList = []
 for i in range(100):
@@ -61,6 +62,7 @@ class Graph():
 
 class frm():
     def __init__(self,routeGraph, n , pivot, serialNumList):
+        # start = time.time()
         self.routeGraph = routeGraph
         self.n = n
         self.pivot = pivot
@@ -77,6 +79,7 @@ class frm():
         self.Graph_to = pd.DataFrame(self.routeGraph.graph)
 
         self.seq_n, self.seq_rest = self.seq_in()
+        # print("init time: ", time.time() - start)
 
     def seq_in(self):
         if (self.routeGraph.SIZE - 1)%self.n == 0:
@@ -104,31 +107,46 @@ class frm():
         return result
 
     def find_min(self,num):
+        # start = time.time()
         r = []
+        # start1 = time.time()
         for i in range(len(self.for_visit)):
             if self.for_visit[i] == 0:
                 r.append(i)
         min = 9999
         min_pth = None
         min_time = None
+        # print("for visit time", time.time() - start1)
 
-        for i in self.pp(r, num):
-            point = self.pivot
+        # start2 = time.time()
+        # for i in self.pp(r, num):
+        graph = self.routeGraph.graph
+        pivot = self.pivot
+        for i in itertools.permutations(r, num):
+            # s1 = time.time()
+            point = pivot
             total = []
             for j in i:
-                total.append(self.Graph_to.loc[point, j])
+                total.append(graph[point][j])
                 point = j
+            # print("s1: ", time.time() - s1)
+            # s2 = time.time()
             if sum(total) < min:
                 min = sum(total)
                 min_pth = i
                 min_time = total
-
+            # print("s2: ", time.time() - s2)
+        # print("start2 time: ", time.time() - start2)
         self.path.extend(min_pth)
 
         self.path_time.extend(min_time)
         self.pivot = self.path[-1]
+        # start3 = time.time()
         for i in min_pth:
             self.for_visit[i] = 1
+        # print("start3 time: ", time.time() - start3)
+
+        # print("find_min_time", time.time()-start)
 
     def complete_path(self):
         for i in range(self.seq_n):
@@ -193,20 +211,26 @@ def sum_calculate(i,n):
 print(sum_calculate(10,1))
 
 def find_n(i,target,time_gap,time1):
-    standard_time = 0.01
-    t_weight = round(0.01/time_gap)
+
+    standard_time_gap = 0.00001
+    if time_gap == 0:
+        # 정상 수행 안될시 t_weight = 1
+        t_weight = 1
+    else:
+        t_weight = round(standard_time_gap/time_gap)
+
     if t_weight == 0:
         t_weight = 1
     print("t_weight :" , t_weight)
     weight = i
     if i >= 150:
-        max_n = 1*t_weight
-    elif i >= 50:
         max_n = 2*t_weight
-    elif i >= 20:
+    elif i >= 50:
         max_n = 3*t_weight
+    elif i >= 20:
+        max_n = 4*t_weight
     elif i >= 10:
-        max_n = 4
+        max_n = 5*t_weight
     else:
         max_n = 999
     print("weight: ",weight)
